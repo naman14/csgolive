@@ -1,0 +1,11 @@
+{
+  "name": "csgolive",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "author": "naman14",
+  "license": "GPL",
+  "dependencies": {
+    "electron": "^1.4.1"
+  }
+}
