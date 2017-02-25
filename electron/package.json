@@ -6,6 +6,9 @@
   "author": "naman14",
   "license": "GPL",
   "dependencies": {
-    "electron": "^1.4.1"
+    "auto-launch": "^5.0.1",
+    "electron": "^1.4.1",
+    "firebase": "^3.6.10",
+    "jQuery": "^1.7.4"
   }
 }
