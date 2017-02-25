@@ -85,6 +85,9 @@
 .container .info span .fa {
     color: #EF3B3A;
 }
+#loading {
+    margin-top: 30px;
+}
 body {
     background: #76b852; /* fallback for old browsers */
     background: -webkit-linear-gradient(right, #76b852, #8DC26F);
