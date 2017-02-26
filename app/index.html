@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Csgolive</title>
+</head>
+<body>
+
+</body>
+
+<script>
+
+    if(localStorage.getItem("email") == null) {
+        console.log("no local storage")
+        location.href = "login.html"
+
+    }
+    require('./renderer.js')
+</script>
+</html>

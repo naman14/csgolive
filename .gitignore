@@ -1,5 +1,4 @@
-csgolive_serviceAccountKey.json
 .idea/
 node_modules/
-electron/node_modules/
+app/node_modules/
 .DS_Store

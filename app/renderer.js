@@ -5,6 +5,7 @@
 let $ = require('jQuery');
 
 let firebase = require("firebase");
+const ipc = require('electron').ipcRenderer
 
 let config = {
     apiKey: "AIzaSyCWnIJ84XMljtxHEmZ4N4mkj-u36vxH7sQ",
@@ -31,8 +32,10 @@ $('#btn-signup').click(function () {
                 email: user.email,
                 uid: user.uid
             }).catch(function (error) {
+                $('#loading').hide()
                 showToast("Error. Login to complete user creation")
             }).then(function () {
+                $('#loading').hide()
                 localStorage.setItem("email", user.email)
                 localStorage.setItem("uid", user.uid)
             });
@@ -67,7 +70,7 @@ $('#btn-login').click(function () {
                     localStorage.setItem("email", user.email)
                     localStorage.setItem("uid", user.uid)
                 } else {
-                    firebase.database().ref('/users/' + uid).set({
+                    firebase.database().ref('/users/' + user.uid).set({
                         email: user.email,
                         uid: user.uid
                     }).catch(function (error) {
