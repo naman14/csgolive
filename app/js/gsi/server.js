@@ -3,6 +3,7 @@
  */
 
 let $ = require('jQuery');
+let gsi = require('./gsiparser.js')
 
 http = require('http');
 
@@ -135,6 +136,8 @@ function processFile(address) {
 
 function update(json) {
     console.log(json)
+     var parsed = gsi.parseData(JSON.stringify(json))
+    io.emit('update', parsed)
 
 }
 
@@ -153,3 +156,5 @@ function showToast(message) {
     var data = {message: message, timeout: 5000};
     snackbarContainer.MaterialSnackbar.showSnackbar(data);
 }
+
+exports.updateServerStatus = updateServerStatus;

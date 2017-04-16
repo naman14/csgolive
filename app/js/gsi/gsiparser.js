@@ -60,3 +60,69 @@ var icons = {
     knife_shadow_dagger: "http://vignette4.wikia.nocookie.net/cswikia/images/f/f1/Knife_push_hud_outline_csgo.png/revision/latest/scale-to-width-down/400"
 
 }
+
+
+var gsiPlayerWeapon = {
+    type: "",
+    name: ""
+
+}
+var gsiPlayer = {
+
+    steam_id: "",
+    name: "",
+    team: "",
+
+    //round kills
+    round_stats: {
+        kills: 0,
+        hs_kills: 0,
+        money: 0
+    },
+
+    match_stats: {
+        kills: 0,
+        deaths: 0,
+        assists: 0,
+        mvps: 0,
+        score: 0
+    },
+
+    player_weapons: []
+}
+
+
+
+
+var gsi = {
+
+    timestamp: "",
+    steam_id: "",
+
+    game: {
+        mode: "",
+        map: "",
+        t_score: 0,
+        ct_score: 0,
+        round: 0,
+        phase: ""
+    },
+
+    round: {
+        phase: "",
+        win_team: "",
+        bomb_status : ""
+    },
+
+    player: gsiPlayer
+
+}
+
+
+function parseData(data) {
+    console.log("parsing data.......")
+   return gsi;
+}
+
+
+exports.parseData = parseData
