@@ -4,7 +4,8 @@
 
 if(localStorage.getItem("email") == null) {
     console.log("no local storage")
-    location.href = "login.html"
+    location.href = "./html/login.html"
 } else {
-    location.href = "home.html"
+    console.log("loading home")
+    location.href = "./html/home.html"
 }

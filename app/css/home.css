@@ -1,0 +1,13 @@
+
+
+#parent div {
+    display: inline-block;
+}
+ .center {
+     text-align: center;
+ }
+.centerFlex {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}

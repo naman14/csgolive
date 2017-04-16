@@ -2,10 +2,12 @@
  * Created by naman on 16/4/17.
  */
 
-let fs = require('fs');
 let $ = require('jQuery');
 
-const {dialog} = require('electron').remote
+let fs = require('fs');
+let path = require('path');
+
+const {dialog} = require('electron').remote;
 
 var content;
 
@@ -30,19 +32,17 @@ function createCfg() {
 
 
 function readLocalCfgFile() {
-    fs.readFile('../csgolive.cfg', function read(err, data) {
+    fs.readFile(path.resolve(__dirname, 'csgolive.cfg'), function read(err, data) {
         if (err) {
             throw err;
         }
         content = data;
 
-        console.log(content);
         processFile();
     });
 }
 
 
 function processFile() {
-    console.log(content);
     createCfg()
 }
