@@ -7,12 +7,19 @@ let $ = require('jQuery');
 $(document).ready(function (){
     $('#content').load('./cfgsetup.html');
 
-    $('#cfgsetup').click(function(){
+    $('#nav-cfgsetup').click(function(){
         $('#content').load('./cfgsetup.html');
     });
 
-    $('#serversetup').click(function(){
-        $('#content').load('./serversetup.html');
+    $('#nav-pastmatches').click(function(){
+        $('#content').load('./pastmatches.html');
     });
 
+    $('#nav-stats').click(function(){
+        $('#content').load('./stats.html');
+    });
+
+    $('#nav-live').click(function(){
+        $('#content').load('./livegame.html');
+    });
 });

@@ -11,3 +11,14 @@
     display: flex;
     justify-content: center;
 }
+
+.margin-top {
+    margin-top: 15px;
+}
+
+.margin-all {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
