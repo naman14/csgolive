@@ -32,6 +32,7 @@ $('#btn-signup').click(function () {
                 $('#loading').hide()
                 localStorage.setItem("email", user.email)
                 localStorage.setItem("uid", user.uid)
+                moveNext()
             });
 
         })
@@ -63,6 +64,7 @@ $('#btn-login').click(function () {
                 if (userData) {
                     localStorage.setItem("email", user.email)
                     localStorage.setItem("uid", user.uid)
+                    moveNext()
                 } else {
                     firebaseapp.database().ref('/users/' + user.uid).set({
                         email: user.email,
@@ -72,6 +74,7 @@ $('#btn-login').click(function () {
                     }).then(function () {
                         localStorage.setItem("email", user.email)
                         localStorage.setItem("uid", user.uid)
+                        moveNext()
                     });
                 }
             });
@@ -95,5 +98,9 @@ function showToast(message) {
     var snackbarContainer = document.querySelector('#status-toast');
     var data = {message: message, timeout: 5000};
     snackbarContainer.MaterialSnackbar.showSnackbar(data);
+}
+
+function moveNext() {
+    location.href = "home.html"
 }
 
