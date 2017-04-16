@@ -1,3 +1,4 @@
+"use strict"
 // get the dependencies
 let gulp        = require('gulp'),
     childProcess  = require('child_process'),

@@ -4,15 +4,9 @@
 
 let $ = require('jQuery');
 
-let firebase = require("firebase");
-const ipc = require('electron').ipcRenderer
+let firebaseapp = require('./../modules/firebaseconfig').firebaseapp
 
-let config = {
-    apiKey: "AIzaSyCWnIJ84XMljtxHEmZ4N4mkj-u36vxH7sQ",
-    authDomain: "csgolive-b4b34.firebaseapp.com",
-    databaseURL: "https://csgolive-b4b34.firebaseio.com/",
-};
-firebase.initializeApp(config);
+const ipc = require('electron').ipcRenderer
 
 
 $('.message a').click(function () {
@@ -25,10 +19,10 @@ $('#btn-signup').click(function () {
     $('#loading').show()
     $('.message').hide()
 
-    firebase.auth().createUserWithEmailAndPassword($('#signup-email').val(), $('#signup-password').val())
+    firebaseapp.auth().createUserWithEmailAndPassword($('#signup-email').val(), $('#signup-password').val())
         .then(function (user) {
 
-            firebase.database().ref('/users/' + uid).set({
+            firebaseapp.database().ref('/users/' + uid).set({
                 email: user.email,
                 uid: user.uid
             }).catch(function (error) {
@@ -58,11 +52,11 @@ $('#btn-login').click(function () {
     $('#loading').show()
     $('.message').hide()
 
-    firebase.auth().signInWithEmailAndPassword($('#login-email').val(), $('#login-password').val())
+    firebaseapp.auth().signInWithEmailAndPassword($('#login-email').val(), $('#login-password').val())
         .then(function (user) {
             console.log(user.email)
 
-            firebase.database().ref('/users/' + user.uid).once('value').then(function (snapshot) {
+            firebaseapp.database().ref('/users/' + user.uid).once('value').then(function (snapshot) {
 
                 let userData = snapshot.val()
 
@@ -70,7 +64,7 @@ $('#btn-login').click(function () {
                     localStorage.setItem("email", user.email)
                     localStorage.setItem("uid", user.uid)
                 } else {
-                    firebase.database().ref('/users/' + user.uid).set({
+                    firebaseapp.database().ref('/users/' + user.uid).set({
                         email: user.email,
                         uid: user.uid
                     }).catch(function (error) {
