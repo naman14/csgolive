@@ -5,24 +5,31 @@
 let $ = require('jQuery');
 
 http = require('http');
-fs = require('fs');
+
+let fs = require('fs');
+let path = require('path');
+
+const {dialog} = require('electron').remote;
+
+var content;
 
 var port = 3000;
 var host = '127.0.0.1';
 
-
 var serverrunning = false;
 var server;
+var io;
 
 $('#btn-start-server').click(function () {
     if (!serverrunning)
         startServer()
     else stopServer()
-
 })
+
 
 function stopServer() {
     server.close()
+    serverrunning = false;
     $("#btn-start-server").html("Start server")
 
 }
@@ -67,12 +74,64 @@ function startServer() {
         updateServerStatus()
     });
 
-    server.listen(port, host);
-    serverrunning = true
+    server.listen(port, host, function () {
+        serverrunning = true;
+        updateServerStatus()
 
-    updateServerStatus()
+        if(server.address() != null) {
+            readLocalCfgFile("http://" + server.address().address + ":" + server.address().port)
+
+            io = require('socket.io')(server);
+
+            io.on('connection', function(client){
+               console.log("connected to socket")
+            });
+
+        }
+    });
+
 }
 
+
+function createCfg() {
+
+    if (localStorage.getItem("cfgPath") == null) {
+
+        let filename = "/csgolive.cfg";
+        let path = dialog.showOpenDialog({properties: ['openDirectory']})[0] + filename;
+        console.log(path)
+        localStorage.setItem("cfgPath", path);
+
+    }
+
+    try {
+        fs.writeFileSync(localStorage.getItem("cfgPath"), content, 'utf8');
+    }
+
+    catch (e) {
+        alert('Failed to save the file !');
+    }
+}
+
+
+
+function readLocalCfgFile(serverAddress) {
+    fs.readFile(path.resolve(__dirname, 'csgolive.cfg'), 'utf8', function read(err, data) {
+        if (err) {
+            throw err;
+        }
+        content = data;
+
+        processFile(serverAddress);
+    });
+}
+
+
+function processFile(address) {
+    console.log(address)
+    console.log(content)
+    createCfg()
+}
 
 function update(json) {
     console.log(json)
@@ -80,6 +139,7 @@ function update(json) {
 }
 
 function updateServerStatus() {
+    serverrunning = server != undefined && (server.address() != null)
     if(serverrunning) {
         $("#btn-start-server").html("Stop server")
 
@@ -93,4 +153,3 @@ function showToast(message) {
     var data = {message: message, timeout: 5000};
     snackbarContainer.MaterialSnackbar.showSnackbar(data);
 }
-
