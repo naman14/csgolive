@@ -44,11 +44,33 @@
     top: 0px;
 }
 
+.topLeft {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+
+.bottomLeft {
+    position: absolute;
+    left: 0px;
+    botton: 0px;
+}
+
 .weaponImg {
     text-align:center;
     display: table-cell;
     vertical-align: middle;
     margin-bottom: 15px;
+}
+
+.weaponText {
+    display: table-cell;
+    float: left;
+
+}
+.weaponText p {
+    display: block;
 }
 
 h1 {
