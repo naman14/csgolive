@@ -4,6 +4,7 @@
 
 let $ = require('jQuery');
 let gsi = require('./gsiparser.js')
+let firebase = require('./firebaseupdate.js')
 
 http = require('http');
 
@@ -137,9 +138,11 @@ function processFile(address) {
 }
 
 function update(json) {
-    console.log(json)
-     var parsed = gsi.parseData(JSON.stringify(json))
-    io.emit('update', parsed)
+    let parsed = gsi.parseData(JSON.stringify(json));
+    console.log("full model"+ JSON.stringify(parsed));
+    io.emit('update', JSON.stringify(parsed))
+    firebase.updateFirebase(parsed)
+
 
 }
 

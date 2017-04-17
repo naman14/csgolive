@@ -66,11 +66,6 @@ function parseData(data) {
 
     json = JSON.parse(data);
 
-    var gsiPlayerWeapon = {
-        type: "",
-        name: ""
-
-    }
 
     var gsiPlayer = {
 
@@ -127,13 +122,22 @@ function parseData(data) {
     gsi.timestamp = json.provider.timestamp;
 
     if(json.round) {
-        gsi.round.bomb_status = json.round.bomb;
+
+        if(json.round.bomb) {
+            gsi.round.bomb_status = json.round.bomb;
+        }
+
         gsi.round.phase = json.round.phase;
-        gsi.round.win_team = json.round.win_team;
+
+        if(json.round.win_team) {
+            gsi.round.win_team = json.round.win_team;
+        }
     }
 
     if(json.map) {
-        gsi.game.mode = json.map.mode;
+        if(json.map.mode) {
+            gsi.game.mode = json.map.mode;
+        }
         gsi.game.map = json.map.name;
         gsi.game.round = json.map.round;
         gsi.game.phase = json.map.phase;
@@ -144,8 +148,14 @@ function parseData(data) {
     if(json.player) {
 
         gsi.player.steam_id = json.player.steamid;
-        gsi.player.name = json.player.name;
-        gsi.player.team = json.player.team;
+
+        if(json.player.name) {
+            gsi.player.name = json.player.name;
+        }
+
+        if(json.player.team) {
+            gsi.player.team = json.player.team;
+        }
 
         if(json.player.state) {
             gsi.player.round_stats.money = json.player.state.money;
@@ -174,7 +184,8 @@ function parseData(data) {
 
                 var weaponModel = {
                     type: type,
-                    name: name
+                    name: name,
+                    icon: icons[name]
                 };
 
                 gsi.player.player_weapons.push(weaponModel)
@@ -182,8 +193,6 @@ function parseData(data) {
             }
         }
     }
-
-    console.log("full model"+ JSON.stringify(gsi));
 
     return gsi;
 }

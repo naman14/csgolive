@@ -22,7 +22,7 @@ $('#btn-signup').click(function () {
     firebaseapp.auth().createUserWithEmailAndPassword($('#signup-email').val(), $('#signup-password').val())
         .then(function (user) {
 
-            firebaseapp.database().ref('/users/' + uid).set({
+            firebaseapp.database().ref('/users/' + user.uid).set({
                 email: user.email,
                 uid: user.uid
             }).catch(function (error) {
