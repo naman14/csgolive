@@ -71,6 +71,23 @@ function updateRoundInfo( currentRound, round, player, playerId) {
         let playerRoundStats = player.name + " : " + player.round_stats.kills + " kills, " + player.round_stats.hs_kills + " headshots";
         $('#round-stats-list').append('<li class="mdl-list__item"> ' +
             '<span class="mdl-list__item-primary-content">'+ playerRoundStats +'</span>');
+
+        $('#player-round-info').empty()
+
+        if(player.round_stats.health != 0) {
+            $('#player-round-info').append('<p> ' +
+                ' Health - ' + player.round_stats.health + '</p>');
+        }
+
+        if(player.round_stats.armor!= 0) {
+
+            $('#player-round-info').append('<p> ' +
+                ' Armor- ' + player.round_stats.armor + '</p>');
+        }
+
+        $('#player-round-info').append('<p> ' +
+            ' Money - $'+player.round_stats.money+'</p>');
+
     } else {
         let playerRoundStats = playerName + " : dead";
         $('#round-stats-list').append('<li class="mdl-list__item"> ' +
@@ -105,11 +122,6 @@ function updateWeapons(weapons) {
     for (let i = 0; i < size; i++) {
         let weapon = weapons[i];
         let  weaponIcon = icons[weapon.name];
-
-
-        // $('#div-weapons').append('<div>  ' +
-        //     '   <div class="weaponText"><p>'+weapon.name+'</p> </div>' +
-        //     '<img class="weaponImg" src='+weaponIcon+' /> </div>')
 
         $('#div-weapons').append(
             '<img class="weaponImg" src='+weaponIcon+' />')
