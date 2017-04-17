@@ -31,7 +31,9 @@ socket.on('update', function (data) {
 
     updateLiveStatus(2)
 
+    updateGameInfo(json.game);
     updateScore(json.player);
+    updateRoundInfo( json.game.round+1 , json.round, json.player)
     updateWeapons(json.player.player_weapons)
 
 });
@@ -39,6 +41,44 @@ socket.on('update', function (data) {
 socket.on('disconnect', function(){
 
 });
+
+
+function updateGameInfo(game) {
+    $('#btn-game-map').html(game.mode + " " + game.map);
+    $('#score-ct').html(game.ct_score);
+    $('#score-t').html(game.t_score);
+
+}
+
+function updateRoundInfo( currentRound, round, player) {
+
+    $('#round-stats-list').empty();
+
+    $('#round-details').html('Round '+ currentRound+" - " + round.phase);
+
+
+    let playerRoundStats = player.name + " : "+player.round_stats.kills + " kills, "+ player.round_stats.hs_kills+ " headshots";
+
+    $('#round-stats-list').append('<li class="mdl-list__item"> ' +
+        '<span class="mdl-list__item-primary-content">'+ playerRoundStats +'</span>');
+
+    if(round.bomb_status != "") {
+        $('#round-stats-list').append('<li class="mdl-list__item"> ' +
+            '<span class="mdl-list__item-primary-content">'+'Bomb '+round.bomb_status+'</span>' +
+            ' <img class="material-icons mdl-list__item-icon" src='+icons["c4"]+'></img>');
+    };
+
+    if(round.win_team != "") {
+        var winText = "";
+        if(round.win_team = "t") {
+            winText = "Terrorists win"
+        } else if(round.win_team = "ct") {
+            winText = "Counter terrorists win"
+        }
+        $('#round-stats-list').append('<li class="mdl-list__item"> ' +
+            '<span class="mdl-list__item-primary-content">'+winText+'</span>');
+    }
+}
 
 function updateWeapons(weapons) {
 

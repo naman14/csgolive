@@ -4,6 +4,9 @@
     display: inline-block;
 }
 
+.inline {
+    display: inline-block;
+}
  .center {
      text-align: center;
  }
@@ -17,6 +20,11 @@
     margin-top: 15px;
 }
 
+.margin-left-right {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
 .margin-all {
     margin-top: 15px;
     margin-bottom: 15px;
@@ -28,6 +36,12 @@
     position: absolute;
     right: 0px;
     bottom: 0px;
+}
+
+.topRight {
+    position: absolute;
+    right: 0px;
+    top: 0px;
 }
 
 .weaponImg {
@@ -50,3 +64,29 @@ h2 {
     font-size: 15px;
     line-height: 1.5;
 }
+
+.txtScoreCT {
+    color: blue;
+    font-family: sans-serif;
+    font-size: 23px;
+}
+
+.txtScoreT {
+    color: red;
+    font-family: sans-serif;
+    font-size: 23px;
+}
+
+.txtScoreTeam {
+    color: black;
+    font-family: sans-serif;
+    font-size: 13px;
+}
+
+.txtCardTitle {
+    color: blue;
+    font-family: sans-serif;
+    font-size: 17px;
+}
+
+
