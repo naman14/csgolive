@@ -4,22 +4,30 @@
     <script>
         require('../js/watchgame.js')
     </script>
+    <link rel="stylesheet" href="../css/home.css">
+
 </head>
 
 <html>
 
-<div class="center" id="user-select">
+<div class="center" id="user-select" style="margin-top: 70px;">
 
-    <form >
+    <div class="margin-all" >
+    <form  action="#" class="margin-top">
         <div class="mdl-textfield mdl-js-textfield">
             <input class="mdl-textfield__input" type="text" id="input-username">
             <label class="mdl-textfield__label" for="input-username">enter username</label>
         </div>
     </form>
 
+
     <button id="btn-watch-user" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored margin-top">
         Search
     </button>
+
+    </div>
+
+    <div id="loading" class="mdl-spinner mdl-js-spinner is-active" style="margin-top: 50px;"></div>
 
 </div>
 
@@ -103,9 +111,5 @@
 
 </div>
 
-<div id="status-toast" class="mdl-js-snackbar mdl-snackbar">
-    <div class="mdl-snackbar__text"></div>
-    <button class="mdl-snackbar__action" type="button"></button>
-</div>
 
 </html>

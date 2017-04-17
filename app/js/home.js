@@ -9,21 +9,28 @@ $(document).ready(function (){
 
     $('#nav-cfgsetup').click(function(){
         $('#content').load('./cfgsetup.html', function () {
-            require('./../js/gsi/server.js').pageLoaded()
+            require('./../js/gsi/server.js').pageLoaded();
+           reloadComponentHandler()
+
         });
     });
 
     $('#nav-pastmatches').click(function(){
-        $('#content').load('./pastmatches.html');
+        $('#content').load('./pastmatches.html', function () {
+            reloadComponentHandler()
+        });
     });
 
     $('#nav-stats').click(function(){
-        $('#content').load('./stats.html');
+        $('#content').load('./stats.html', function () {
+            reloadComponentHandler()
+        });
     });
 
     $('#nav-live').click(function(){
         $('#content').load('./livegame.html', function () {
             require('./../js/livegame.js').pageLoaded()
+            reloadComponentHandler()
 
         });
     });
@@ -31,7 +38,14 @@ $(document).ready(function (){
     $('#nav-watch').click(function(){
         $('#content').load('./watchgame.html', function () {
             require('./../js/watchgame.js').pageLoaded()
+            reloadComponentHandler()
         });
     });
 
 });
+
+function reloadComponentHandler() {
+    if(!(typeof(componentHandler) == 'undefined')){
+        componentHandler.upgradeAllRegistered();
+    }
+}

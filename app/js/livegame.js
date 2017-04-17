@@ -2,7 +2,6 @@
  * Created by naman on 16/4/17.
  */
 
-
 let $ = require('jQuery')
 let renderer = require('./../modules/liverenderer.js')
 

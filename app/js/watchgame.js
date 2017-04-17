@@ -20,6 +20,7 @@ function checkFirebaseData(username) {
 
                     $('#user-select').hide();
                     $('#parent').show();
+                    $('#loading').hide()
 
                     renderer.updateLiveStatus(1);
 
@@ -27,12 +28,14 @@ function checkFirebaseData(username) {
                 })
 
             } else {
+                $('#loading').hide()
                 showToast("User is not live");
                 renderer.updateLiveStatus(0);
             }
 
         }
         else {
+            $('#loading').hide()
             showToast("User does not exist")
         }
     });
@@ -50,11 +53,13 @@ function pageLoaded() {
 
     $('#user-select').show()
     $('#parent').hide()
+    $('#loading').hide()
 
     renderer.updateLiveStatus(0)
 
     $('#btn-watch-user').click(function () {
         let username = $('#input-username').val();
+        $('#loading').show()
         checkFirebaseData(username)
     });
 
