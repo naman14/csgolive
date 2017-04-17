@@ -5,7 +5,16 @@
 var socket = io('http://127.0.0.1:3000');
 let $ = require('jQuery')
 
+socket.on('connect', function(){
+
+});
+
+
 socket.on('update', function (data) {
     console.log("update nin libe game")
     $('#payload').html(data)
 })
+
+socket.on('disconnect', function(){
+
+});

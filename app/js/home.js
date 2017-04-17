@@ -8,10 +8,7 @@ $(document).ready(function (){
     $('#content').load('./cfgsetup.html');
 
     $('#nav-cfgsetup').click(function(){
-        $('#content').load('./cfgsetup.html', function () {
-            let s = require('./../js/gsi/server.js')
-            s.updateServerStatus()
-        });
+        $('#content').load('./cfgsetup.html');
     });
 
     $('#nav-pastmatches').click(function(){

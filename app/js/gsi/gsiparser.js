@@ -62,66 +62,130 @@ var icons = {
 }
 
 
-var gsiPlayerWeapon = {
-    type: "",
-    name: ""
-
-}
-var gsiPlayer = {
-
-    steam_id: "",
-    name: "",
-    team: "",
-
-    //round kills
-    round_stats: {
-        kills: 0,
-        hs_kills: 0,
-        money: 0
-    },
-
-    match_stats: {
-        kills: 0,
-        deaths: 0,
-        assists: 0,
-        mvps: 0,
-        score: 0
-    },
-
-    player_weapons: []
-}
-
-
-
-
-var gsi = {
-
-    timestamp: "",
-    steam_id: "",
-
-    game: {
-        mode: "",
-        map: "",
-        t_score: 0,
-        ct_score: 0,
-        round: 0,
-        phase: ""
-    },
-
-    round: {
-        phase: "",
-        win_team: "",
-        bomb_status : ""
-    },
-
-    player: gsiPlayer
-
-}
-
-
 function parseData(data) {
+
+    json = JSON.parse(data);
+
+    var gsiPlayerWeapon = {
+        type: "",
+        name: ""
+
+    }
+
+    var gsiPlayer = {
+
+        steam_id: "",
+        name: "",
+        team: "",
+
+        //round kills
+        round_stats: {
+            kills: 0,
+            hs_kills: 0,
+            money: 0
+        },
+
+        match_stats: {
+            kills: 0,
+            deaths: 0,
+            assists: 0,
+            mvps: 0,
+            score: 0
+        },
+
+        player_weapons: []
+    }
+
+    var gsi = {
+
+        timestamp: "",
+        steam_id: "",
+
+        game: {
+            mode: "",
+            map: "",
+            t_score: 0,
+            ct_score: 0,
+            round: 0,
+            phase: ""
+        },
+
+        round: {
+            phase: "",
+            win_team: "",
+            bomb_status : ""
+        },
+
+        player: gsiPlayer
+
+    }
+
+
     console.log("parsing data.......")
-   return gsi;
+
+    gsi.steam_id = json.provider.steamid;
+    gsi.timestamp = json.provider.timestamp;
+
+    if(json.round) {
+        gsi.round.bomb_status = json.round.bomb;
+        gsi.round.phase = json.round.phase;
+        gsi.round.win_team = json.round.win_team;
+    }
+
+    if(json.map) {
+        gsi.game.mode = json.map.mode;
+        gsi.game.map = json.map.name;
+        gsi.game.round = json.map.round;
+        gsi.game.phase = json.map.phase;
+        gsi.game.ct_score = json.map.team_ct.score;
+        gsi.game.t_score = json.map.team_t.score;
+    }
+
+    if(json.player) {
+
+        gsi.player.steam_id = json.player.steamid;
+        gsi.player.name = json.player.name;
+        gsi.player.team = json.player.team;
+
+        if(json.player.state) {
+            gsi.player.round_stats.money = json.player.state.money;
+            gsi.player.round_stats.kills = json.player.state.round_kills;
+            gsi.player.round_stats.hs_kills = json.player.state.round_killhs;
+        }
+
+        if(json.player.match_stats) {
+            gsi.player.match_stats.kills = json.player.match_stats.kills;
+            gsi.player.match_stats.deaths = json.player.match_stats.deaths;
+            gsi.player.match_stats.assists = json.player.match_stats.assists;
+            gsi.player.match_stats.mvps = json.player.match_stats.mvps;
+            gsi.player.match_stats.score = json.player.match_stats.score;
+        }
+    }
+
+
+    if(json.player.weapons) {
+        for (let key in json.player.weapons) {
+
+            if (json.player.weapons.hasOwnProperty(key)) {
+
+                var weapon = json.player.weapons[key];
+                var name = weapon.name.replace("weapon_", "");
+                var type = weapon.type.toLowerCase();
+
+                var weaponModel = {
+                    type: type,
+                    name: name
+                };
+
+                gsi.player.player_weapons.push(weaponModel)
+
+            }
+        }
+    }
+
+    console.log("full model"+ JSON.stringify(gsi));
+
+    return gsi;
 }
 
 

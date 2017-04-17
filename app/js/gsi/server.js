@@ -22,6 +22,7 @@ var server;
 var io;
 
 $('#btn-start-server').click(function () {
+    updateServerStatus()
     if (!serverrunning)
         startServer()
     else stopServer()
@@ -105,13 +106,13 @@ function createCfg() {
 
     }
 
-    try {
-        fs.writeFileSync(localStorage.getItem("cfgPath"), content, 'utf8');
-    }
-
-    catch (e) {
-        alert('Failed to save the file !');
-    }
+    // try {
+    //     fs.writeFileSync(localStorage.getItem("cfgPath"), content, 'utf8');
+    // }
+    //
+    // catch (e) {
+    //     alert('Failed to save the file !');
+    // }
 }
 
 
@@ -121,6 +122,7 @@ function readLocalCfgFile(serverAddress) {
         if (err) {
             throw err;
         }
+
         content = data;
 
         processFile(serverAddress);
