@@ -8,6 +8,8 @@ let firebaseapp = require('./../modules/firebaseconfig').firebaseapp
 
 const ipc = require('electron').ipcRenderer
 
+let domain = "@csgolive.com";
+
 
 $('.message a').click(function () {
     $('#form1').animate({height: "toggle", opacity: "toggle"}, "medium");
@@ -19,19 +21,22 @@ $('#btn-signup').click(function () {
     $('#loading').show()
     $('.message').hide()
 
-    firebaseapp.auth().createUserWithEmailAndPassword($('#signup-email').val(), $('#signup-password').val())
+    firebaseapp.auth().createUserWithEmailAndPassword($('#signup-email').val() + domain, $('#signup-password').val())
         .then(function (user) {
 
-            firebaseapp.database().ref('/users/' + user.uid).set({
+            let username = user.email.replace(domain, '');
+            firebaseapp.database().ref('/users/' + username).set({
                 email: user.email,
-                uid: user.uid
+                uid: user.uid,
+                username: username
             }).catch(function (error) {
                 $('#loading').hide()
                 showToast("Error. Login to complete user creation")
             }).then(function () {
                 $('#loading').hide()
-                localStorage.setItem("email", user.email)
-                localStorage.setItem("uid", user.uid)
+                localStorage.setItem("email", user.email);
+                localStorage.setItem("uid", user.uid);
+                localStorage.setItem("username", username);
                 moveNext()
             });
 
@@ -43,6 +48,7 @@ $('#btn-signup').click(function () {
 
             $('#loading').hide()
 
+
             showToast(errorMessage)
 
         });
@@ -53,27 +59,31 @@ $('#btn-login').click(function () {
     $('#loading').show()
     $('.message').hide()
 
-    firebaseapp.auth().signInWithEmailAndPassword($('#login-email').val(), $('#login-password').val())
+    firebaseapp.auth().signInWithEmailAndPassword($('#login-email').val()+ domain, $('#login-password').val())
         .then(function (user) {
-            console.log(user.email)
 
-            firebaseapp.database().ref('/users/' + user.uid).once('value').then(function (snapshot) {
+            let username = user.email.replace(domain, '');
+
+            firebaseapp.database().ref('/users/' + username).once('value').then(function (snapshot) {
 
                 let userData = snapshot.val()
 
                 if (userData) {
                     localStorage.setItem("email", user.email)
                     localStorage.setItem("uid", user.uid)
+                    localStorage.setItem("username", username);
                     moveNext()
                 } else {
-                    firebaseapp.database().ref('/users/' + user.uid).set({
+                    firebaseapp.database().ref('/users/' + username).set({
                         email: user.email,
-                        uid: user.uid
+                        uid: user.uid,
+                        username: username
                     }).catch(function (error) {
                         showToast("Error occurred.")
                     }).then(function () {
                         localStorage.setItem("email", user.email)
                         localStorage.setItem("uid", user.uid)
+                        localStorage.setItem("username", username);
                         moveNext()
                     });
                 }
@@ -88,6 +98,7 @@ $('#btn-login').click(function () {
             console.log(errorMessage)
 
             $('#loading').hide()
+            $('.message').show()
             showToast(errorMessage)
 
         });

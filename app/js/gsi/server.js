@@ -29,6 +29,12 @@ $('#btn-start-server').click(function () {
     else stopServer()
 })
 
+$('#btn-logout').click(function () {
+   localStorage.clear()
+    location.href = './../index.html'
+})
+
+$('#btn-user-name').html(localStorage.getItem("username"));
 
 function stopServer() {
     server.close()
