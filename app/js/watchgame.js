@@ -7,12 +7,8 @@ let $ = require('jQuery');
 let renderer = require('./../modules/liverenderer.js')
 let firebaseapp = require('./../modules/firebaseconfig').firebaseapp;
 
-
-$('#btn-watch-user').click(function () {
-
-    let username = $('#input-username').val();
-
-   let userref =  firebaseapp.database().ref('/users/'+ username);
+function checkFirebaseData(username) {
+    let userref =  firebaseapp.database().ref('/users/'+ username);
 
     userref.on('value', function(snapshot) {
 
@@ -26,7 +22,8 @@ $('#btn-watch-user').click(function () {
                     $('#parent').show();
 
                     renderer.updateLiveStatus(1);
-                    renderer.renderData(snapshot)
+
+                    renderer.renderData(JSON.stringify(snapshot.val()))
                 })
 
             } else {
@@ -36,14 +33,11 @@ $('#btn-watch-user').click(function () {
 
         }
         else {
-           showToast("User does not exist")
+            showToast("User does not exist")
         }
     });
-   
+}
 
-
-
-});
 
 
 function showToast(message) {
@@ -51,3 +45,19 @@ function showToast(message) {
     var data = {message: message, timeout: 5000};
     snackbarContainer.MaterialSnackbar.showSnackbar(data);
 }
+
+function pageLoaded() {
+
+    $('#user-select').show()
+    $('#parent').hide()
+
+    renderer.updateLiveStatus(0)
+
+    $('#btn-watch-user').click(function () {
+        let username = $('#input-username').val();
+        checkFirebaseData(username)
+    });
+
+}
+
+exports.pageLoaded = pageLoaded;

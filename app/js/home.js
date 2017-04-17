@@ -8,7 +8,9 @@ $(document).ready(function (){
     $('#content').load('./cfgsetup.html');
 
     $('#nav-cfgsetup').click(function(){
-        $('#content').load('./cfgsetup.html');
+        $('#content').load('./cfgsetup.html', function () {
+            require('./../js/gsi/server.js').pageLoaded()
+        });
     });
 
     $('#nav-pastmatches').click(function(){
@@ -20,11 +22,16 @@ $(document).ready(function (){
     });
 
     $('#nav-live').click(function(){
-        $('#content').load('./livegame.html');
+        $('#content').load('./livegame.html', function () {
+            require('./../js/livegame.js').pageLoaded()
+
+        });
     });
 
     $('#nav-watch').click(function(){
-        $('#content').load('./watchgame.html');
+        $('#content').load('./watchgame.html', function () {
+            require('./../js/watchgame.js').pageLoaded()
+        });
     });
 
 });

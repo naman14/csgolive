@@ -2,25 +2,34 @@
  * Created by naman on 16/4/17.
  */
 
-var socket = io('http://127.0.0.1:3000');
 
+let $ = require('jQuery')
 let renderer = require('./../modules/liverenderer.js')
 
-socket.on('connect', function(){
-    renderer.updateLiveStatus(1)
-});
+function pageLoaded() {
+    renderer.updateLiveStatus(0);
 
-socket.on('connect_error', function(){
-       renderer.updateLiveStatus(0)
-});
+    let socket = io('http://127.0.0.1:3000');
 
-socket.on('update', function (data) {
-  renderer.renderData(data)
-});
+    socket.on('connect', function(){
+        renderer.updateLiveStatus(1)
+    });
 
-socket.on('disconnect', function(){
+    socket.on('connect_error', function(){
+        renderer.updateLiveStatus(0)
+    });
 
-});
+    socket.on('update', function (data) {
+        renderer.renderData(data)
+    });
+
+    socket.on('disconnect', function(){
+        renderer.updateLiveStatus(0)
+    });
+
+}
+
+exports.pageLoaded = pageLoaded;
 
 
 

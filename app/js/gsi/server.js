@@ -22,19 +22,12 @@ var serverrunning = false;
 var server;
 var io;
 
-$('#btn-start-server').click(function () {
-    updateServerStatus()
-    if (!serverrunning)
-        startServer()
-    else stopServer()
-})
 
-$('#btn-logout').click(function () {
-   localStorage.clear()
-    location.href = './../index.html'
-})
+$(document).ready(
+    function(){
+     pageLoaded()
 
-$('#btn-user-name').html(localStorage.getItem("username"));
+    });
 
 function stopServer() {
     server.close()
@@ -178,4 +171,23 @@ function showToast(message) {
     snackbarContainer.MaterialSnackbar.showSnackbar(data);
 }
 
+
+function pageLoaded() {
+    $('#btn-start-server').click(function () {
+        updateServerStatus()
+        if (!serverrunning)
+            startServer()
+        else stopServer()
+    })
+
+    $('#btn-logout').click(function () {
+        localStorage.clear()
+        location.href = './../index.html'
+    })
+
+    $('#btn-user-name').html(localStorage.getItem("username"));
+
+}
+
+exports.pageLoaded = pageLoaded;
 exports.updateServerStatus = updateServerStatus;

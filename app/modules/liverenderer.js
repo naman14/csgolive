@@ -42,7 +42,10 @@ function renderData(data) {
     updateScore(json.player);
 
     updateRoundInfo( json.game.round+1 , json.round, json.player, json.steam_id)
-    updateWeapons(json.player.player_weapons)
+
+    if(json.player.player_weapons) {
+        updateWeapons(json.player.player_weapons)
+    }
 
 
     $('#btn-player-name').html(playerName);
@@ -134,14 +137,14 @@ function updateLiveStatus(i) {
 
         $('#live-status').html("User not live :(");
         $('#live-status').show()
-        // $('#live-container').hide()
+        $('#live-container').hide()
 
     } else if( i== 1) {
         $('#live-status').html("Waiting for data...");
         $('#live-status').show()
         $('#live-container').hide()
 
-    } else {
+    } else if( i == 2){
         $('#live-status').hide()
         $('#live-container').show()
     }
