@@ -22,4 +22,9 @@ $(document).ready(function (){
     $('#nav-live').click(function(){
         $('#content').load('./livegame.html');
     });
+
+    $('#nav-watch').click(function(){
+        $('#content').load('./watchgame.html');
+    });
+
 });

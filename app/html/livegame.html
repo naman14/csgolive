@@ -4,6 +4,7 @@
 
     <script src="../js/socket.io/socket.io.js">   </script>
 
+    <link rel="stylesheet" href="../css/home.css">
 
     <script>
         require('../js/livegame.js')
@@ -11,11 +12,15 @@
 
 </head>
 
-<html>
-<div class="center" id="parent">
+<div class="center">
 
 
-<p id="payload"></p>
+    <p id="live-status">You are not live yet :(</p>
+
+    <div id="live-container" class="center parent"></div>
 
 </div>
+
+
+
 </html>

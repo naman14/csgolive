@@ -1,8 +1,9 @@
 
 
-#parent div {
+.parent div {
     display: inline-block;
 }
+
  .center {
      text-align: center;
  }
