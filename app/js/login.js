@@ -4,9 +4,7 @@
 
 let $ = require('jQuery');
 
-let firebaseapp = require('./../modules/firebaseconfig').firebaseapp
-
-const ipc = require('electron').ipcRenderer
+let firebaseapp = require('./../modules/firebaseconfig').firebaseapp;
 
 let domain = "@csgolive.com";
 
@@ -18,8 +16,8 @@ $('.message a').click(function () {
 
 $('#btn-signup').click(function () {
 
-    $('#loading').show()
-    $('.message').hide()
+    $('#loading').show();
+    $('.message').hide();
 
     firebaseapp.auth().createUserWithEmailAndPassword($('#signup-email').val() + domain, $('#signup-password').val())
         .then(function (user) {

@@ -8,16 +8,16 @@ let firebaseapp = require('./../../modules/firebaseconfig').firebaseapp
 
 function updateFirebase(data) {
 
-    let uid = localStorage.getItem('uid');
+    let username = localStorage.getItem('username');
 
-    if(uid == null) {
-        console.log("uid undefined, aborting..")
+    if(username == null) {
+        console.log("username undefined, aborting..")
         return;
     }
 
     let database = firebaseapp.database();
 
-    database.ref('/users/' + uid).child("live").set(data)
+    database.ref('/users/' + username).child("live").set(data)
         .catch(function (error) {
             console.log(error);
         }).then(function () {

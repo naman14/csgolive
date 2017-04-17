@@ -5,7 +5,7 @@ var json;
 let $ = require('jQuery');
 
 var icons = {
-    c75za: "../img/weapons/C75a_hud_csgo.png",
+    cz75a: "../img/weapons/C75a_hud_csgo.png",
     deagle: "../img/weapons/Deagle_hud_go.png",
     elite: "../img/weapons/Elite_hud_csgo.png",
     fiveseven: "../img/weapons/Fiveseven_hud_csgo.png",

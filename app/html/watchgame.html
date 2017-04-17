@@ -1,18 +1,111 @@
 <!DOCTYPE html>
 
 <head>
-
-
     <script>
         require('../js/watchgame.js')
     </script>
 </head>
 
 <html>
-<div class="center" id="parent">
 
+<div class="center" id="user-select">
 
-    <p id="payload"></p>
+    <form >
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="text" id="input-username">
+            <label class="mdl-textfield__label" for="input-username">enter username</label>
+        </div>
+    </form>
+
+    <button id="btn-watch-user" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored margin-top">
+        Go
+    </button>
 
 </div>
+
+<div id="parent">
+
+    <h1 id="live-status" class="center" style="margin-top: 100px" ></h1>
+
+    <div id="live-container" class="center margin-all" >
+
+        <div class="topRight margin-all inline">
+
+            <button id="btn-live-status" class="mdl-button mdl-js-button mdl-button--accent">
+                LIVE
+            </button>
+
+            <button id="btn-game-map" class="mdl-button mdl-js-button mdl-button--primary">
+            </button>
+
+
+        </div>
+
+        <div class="topLeft margin-all inline">
+
+            <button id="btn-player-name" class="mdl-button mdl-js-button mdl-button--accent">
+            </button>
+
+            <button id="btn-player-team" class="mdl-button mdl-js-button mdl-button--primary">
+            </button>
+
+
+        </div>
+
+        <div class="center margin-top">
+
+            <p class="txtScoreTeam margin-left-right inline">CT</p>
+            <p class="txtScoreTeam margin-left-right inline">T</p>
+        </div>
+
+        <div class="center">
+
+            <p class="txtScoreCT margin-left-right inline" id="score-ct">-</p>
+            <p class="txtScoreT margin-left-right inline" id="score-t">-</p>
+        </div>
+
+        <table style="margin: 0 auto; margin-top: 50px;" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="score-table">
+            <thead>
+            <tr>
+                <th class="mdl-data-table__cell--non-numeric">Player</th>
+                <th>Kills</th>
+                <th>Assists</th>
+                <th>Deaths</th>
+                <th>MVPs</th>
+                <th>Score</th>
+            </tr>
+            </thead>
+
+            <tbody id="score-table-body">
+
+            </tbody>
+        </table>
+
+        <div class="mdl-card mdl-shadow--4dp inline margin-all" id="round-card">
+
+            <p class="txtCardTitle margin-top" id="round-details"></p>
+
+            <ul class="mdl-list" id="round-stats-list">
+            </ul>
+
+        </div>
+
+
+        <div class="bottomRight margin-all " id="div-weapons">
+        </div>
+
+
+        <div class="bottomLeft margin-all " id="div-health">
+        </div>
+
+    </div>
+</div>
+
+</div>
+
+<div id="status-toast" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button class="mdl-snackbar__action" type="button"></button>
+</div>
+
 </html>
