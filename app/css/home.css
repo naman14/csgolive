@@ -23,3 +23,30 @@
     margin-left: 20px;
     margin-right: 20px;
 }
+
+.bottomRight {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+}
+
+.weaponImg {
+    text-align:center;
+    display: table-cell;
+    vertical-align: middle;
+    margin-bottom: 15px;
+}
+
+h1 {
+    color: #00c853;
+    font-family: sans-serif;
+    font-size: 35px;
+    line-height: 1.5;
+}
+
+h2 {
+    color: black;
+    font-family: sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+}

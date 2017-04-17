@@ -77,48 +77,64 @@ function startServer() {
         updateServerStatus()
     });
 
-    server.listen(port, host, function () {
-        serverrunning = true;
-        updateServerStatus()
 
-        if(server.address() != null) {
-            readLocalCfgFile("http://" + server.address().address + ":" + server.address().port)
 
-            io = require('socket.io')(server);
+    readLocalCfgFile( function () {
+        server.listen(port, host, function () {
+            serverrunning = true;
+            updateServerStatus()
 
-            io.on('connection', function(client){
-               console.log("connected to socket")
-            });
+            if(server.address() != null) {
+                io = require('socket.io')(server);
 
-        }
+                io.on('connection', function(client){
+                    console.log("connected to socket")
+                });
+
+            }
+        });
     });
+
+
 
 }
 
 
-function createCfg() {
+function createCfg(callback) {
 
     if (localStorage.getItem("cfgPath") == null) {
 
-        let filename = "/csgolive.cfg";
-        let path = dialog.showOpenDialog({properties: ['openDirectory']})[0] + filename;
-        console.log(path)
-        localStorage.setItem("cfgPath", path);
-
+        dialog.showMessageBox({title: "Choose csgo config location",type: "info",
+                buttons:["OK"],
+                message:"You will need to choose the csgo cfg directory where the config file need to be present. " +
+                "It is generally located in - <br>C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\cfg"},
+            function () {
+                let filename = "/csgolive.cfg";
+                let path = dialog.showOpenDialog({properties: ['openDirectory']})[0] + filename;
+                console.log(path)
+                localStorage.setItem("cfgPath", path);
+                writeToFile(callback)
+            })
+    } else {
+        writeToFile(callback)
     }
 
-    // try {
-    //     fs.writeFileSync(localStorage.getItem("cfgPath"), content, 'utf8');
-    // }
-    //
-    // catch (e) {
-    //     alert('Failed to save the file !');
-    // }
+}
+
+function writeToFile(callback) {
+    try {
+        fs.writeFileSync(localStorage.getItem("cfgPath"), content, 'utf8');
+        callback()
+    }
+
+    catch (e) {
+        alert('Failed to save the file !');
+    }
 }
 
 
 
-function readLocalCfgFile(serverAddress) {
+function readLocalCfgFile(callback) {
     fs.readFile(path.resolve(__dirname, 'csgolive.cfg'), 'utf8', function read(err, data) {
         if (err) {
             throw err;
@@ -126,16 +142,10 @@ function readLocalCfgFile(serverAddress) {
 
         content = data;
 
-        processFile(serverAddress);
+       createCfg(callback)
     });
 }
 
-
-function processFile(address) {
-    console.log(address)
-    console.log(content)
-    createCfg()
-}
 
 function update(json) {
     let parsed = gsi.parseData(JSON.stringify(json));
