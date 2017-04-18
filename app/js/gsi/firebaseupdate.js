@@ -25,4 +25,23 @@ function updateFirebase(data) {
     });
 }
 
+function saveGameToFirebase(data) {
+    let username = localStorage.getItem('username');
+
+    if(username == null) {
+        console.log("username undefined, aborting..")
+        return;
+    }
+
+    let database = firebaseapp.database();
+
+    database.ref('/users/' + username).child("games").push().set(data)
+        .catch(function (error) {
+            console.log(error);
+        }).then(function () {
+
+    });
+}
+
 exports.updateFirebase = updateFirebase;
+exports.saveGameToFirebase = saveGameToFirebase;

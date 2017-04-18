@@ -149,8 +149,31 @@ function readLocalCfgFile(callback) {
 function update(json) {
     let parsed = gsi.parseData(JSON.stringify(json));
     console.log("full model"+ JSON.stringify(parsed));
-    io.emit('update', JSON.stringify(parsed))
-    firebase.updateFirebase(parsed)
+
+    var shouldBroadcast = true;
+
+    if(parsed.game.mode.toLowerCase() == "competitive") {
+        shouldBroadcast = localStorage.getItem("broadcast_comp")
+    } else if(parsed.game.mode.toLowerCase() == "casual") {
+        shouldBroadcast = localStorage.getItem("broadcast_casual")
+    } else if(parsed.game.mode.toLowerCase() == "deathmatch") {
+        shouldBroadcast = localStorage.getItem("broadcast_dm")
+    } else {
+        shouldBroadcast = false;
+    }
+
+    if(shouldBroadcast) {
+        io.emit('update', JSON.stringify(parsed))
+        firebase.updateFirebase(parsed)
+    }
+
+    //game over save data to firebase
+    if(parsed.game.phase == "gameover" && localStorage.getItem("save_game_firebase")) {
+        parsed.round = null;
+        parsed.player.round_stats = null;
+        parsed.player.player_weapons = null;
+        firebase.saveGameToFirebase(parsed)
+    }
 
 
 }
@@ -186,6 +209,56 @@ function pageLoaded() {
     })
 
     $('#btn-user-name').html(localStorage.getItem("username"));
+
+
+    if(localStorage.getItem("broadcast_comp") == null) {
+        localStorage.setItem("broadcast_comp", true);
+    }
+    if(localStorage.getItem("broadcast_casual") == null) {
+        localStorage.setItem("broadcast_casual", true);
+    }
+    if(localStorage.getItem("broadcast_dm") == null) {
+        localStorage.setItem("broadcast_dm", true);
+    }
+    if(localStorage.getItem("save_game_firebase") == null) {
+        localStorage.setItem("save_game_firebase", true);
+    }
+    $('#checkbox-1').change(function () {
+        if(this.checked) {
+            localStorage.setItem("broadcast_comp", true);
+        } else {
+            localStorage.setItem("broadcast_comp", false)
+        }
+    })
+
+    $('#checkbox-2').change(function () {
+        if(this.checked) {
+            localStorage.setItem("broadcast_casual", true);
+        } else {
+            localStorage.setItem("broadcast_casual", false)
+        }
+    })
+
+    $('#checkbox-3').change(function () {
+        if(this.checked) {
+            localStorage.setItem("broadcast_dm", true);
+        } else {
+            localStorage.setItem("broadcast_dm", false)
+        }
+    })
+    $('#switch-1').change(function () {
+        if(this.checked) {
+            localStorage.setItem("save_game_firebase", true);
+        } else {
+            localStorage.setItem("save_game_firebase", false)
+        }
+    })
+
+    $('#checkbox-1').attr("checked",localStorage.getItem("broadcast_comp"));
+    $('#checkbox-2').attr("checked",localStorage.getItem("broadcast_casual"));
+    $('#checkbox-3').attr("checked",localStorage.getItem("broadcast_dm"));
+    $('#switch-1').attr("checked",localStorage.getItem("save_game_firebase"));
+
 
 }
 

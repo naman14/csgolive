@@ -10,6 +10,15 @@
  .center {
      text-align: center;
  }
+
+div.centerHorizontal
+{
+    width: 200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .centerFlex {
     align-items: center;
     display: flex;
@@ -18,6 +27,10 @@
 
 .margin-top {
     margin-top: 15px;
+}
+
+.margin-bottom {
+    margin-bottom: 15px;
 }
 
 .margin-left-right {

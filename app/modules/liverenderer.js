@@ -56,6 +56,7 @@ function renderData(data) {
 }
 function updateGameInfo(game) {
     $('#btn-game-map').html(game.mode + " " + game.map);
+    $('#btn-live-status').html(game.phase);
     $('#score-ct').html(game.ct_score);
     $('#score-t').html(game.t_score);
 
