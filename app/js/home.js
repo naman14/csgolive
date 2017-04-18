@@ -17,6 +17,7 @@ $(document).ready(function (){
 
     $('#nav-pastmatches').click(function(){
         $('#content').load('./pastmatches.html', function () {
+            require('./../js/pastgames.js').pageLoaded();
             reloadComponentHandler()
         });
     });

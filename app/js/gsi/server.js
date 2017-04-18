@@ -105,10 +105,10 @@ function createCfg(callback) {
 
         dialog.showMessageBox({title: "Choose csgo config location",type: "info",
                 buttons:["OK"],
-                message:"You will need to choose the csgo cfg directory where the config file need to be present. " +
-                "It is generally located in - <br>C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\cfg"},
+                message:"CSGO Live will create a config file that need to be present in the csgo cfg directory. Please choose the csgo cfg directory " +
+                "It is generally located in - C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\cfg"},
             function () {
-                let filename = "/csgolive.cfg";
+                let filename = "/gamestate_integration_csgolive.cfg";
                 let path = dialog.showOpenDialog({properties: ['openDirectory']})[0] + filename;
                 console.log(path)
                 localStorage.setItem("cfgPath", path);
@@ -149,6 +149,7 @@ function readLocalCfgFile(callback) {
 function update(json) {
     let parsed = gsi.parseData(JSON.stringify(json));
     console.log("full model"+ JSON.stringify(parsed));
+    io.emit('update', JSON.stringify(parsed))
 
     var shouldBroadcast = true;
 
@@ -163,7 +164,6 @@ function update(json) {
     }
 
     if(shouldBroadcast) {
-        io.emit('update', JSON.stringify(parsed))
         firebase.updateFirebase(parsed)
     }
 
