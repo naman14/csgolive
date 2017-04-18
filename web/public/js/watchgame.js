@@ -47,13 +47,14 @@ function showToast(message) {
 }
 
 jQuery(document).ready(function($){
-        this.$ = $;
-        pageLoaded()
+    this.$ = $;
+    pageLoaded($)
+
 });
 
+function pageLoaded($) {
 
-function pageLoaded() {
-
+    this.$ = $;
     this.$('#user-select').show()
     this.$('#parent').hide()
     this.$('#loading').hide()

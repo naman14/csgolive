@@ -2,4 +2,4 @@
  * Created by naman on 16/4/17.
  */
 
-location.href = "./html/watchgame.html"
+location.href = "./home.html"

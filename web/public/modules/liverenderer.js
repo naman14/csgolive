@@ -90,7 +90,7 @@ function updateRoundInfo( currentRound, round, player, playerId) {
             } else {
                 armorStatus += "no armor";
             }
-            armorStatus += ', this.$' + player.round_stats.money;
+            armorStatus += ', $' + player.round_stats.money;
 
             this.$('#round-stats-list').append('<li class="mdl-list__item"> ' +
                 '<span class="mdl-list__item-primary-content">' + player.round_stats.health + ' HP' + armorStatus + '</span></li>');
@@ -224,10 +224,5 @@ function updateLiveStatus(i, live) {
 
     }
 }
-
-jQuery(document).ready(function($){
-    this.$ = $;
-    pageLoaded()
-});
 
 
