@@ -13,6 +13,10 @@ var playerID;
 //1- server running - waiting for data - not live
 //2 - server running - receiving data - live
 
+var redcss = 'style= "color:red"';
+var bluecss = 'style= "color:blue"';
+var blackcss = 'style= "color:black"';
+
 function renderData(data) {
     let json = JSON.parse(data);
 
@@ -63,9 +67,9 @@ function updateRoundInfo( currentRound, round, player, playerId) {
 
     $('#round-stats-list').empty();
 
-    if(round.phase != "over") {
-        $('#round-details').html('Round ' + currentRound + " - " + round.phase);
-    }
+
+    $('#round-stats-list').append('<li class="mdl-list__item"> ' +
+            '<span class="mdl-list__item-primary-content txtCardTitle">' + 'Round ' + currentRound + " - " + round.phase + '</span>');
 
     if(player.steam_id == playerId) {
         playerName = player.name;
@@ -73,52 +77,56 @@ function updateRoundInfo( currentRound, round, player, playerId) {
         $('#round-stats-list').append('<li class="mdl-list__item"> ' +
             '<span class="mdl-list__item-primary-content">'+ playerRoundStats +'</span>');
 
-        $('#player-round-info').empty()
+        if(round.phase != "over") {
+            var armorStatus = ", ";
 
-        if(player.round_stats.health != 0) {
-            $('#player-round-info').append('<p> ' +
-                ' Health - ' + player.round_stats.health + '</p>');
+            if (player.round_stats.armor != 0) {
+                armorStatus += player.round_stats.armor + ' % armor';
+            } else {
+                armorStatus += "no armor";
+            }
+            armorStatus += ', $' + player.round_stats.money;
+
+            $('#round-stats-list').append('<li class="mdl-list__item"> ' +
+                '<span class="mdl-list__item-primary-content">' + player.round_stats.health + ' HP' + armorStatus + '</span></li>');
+
         }
 
-        if(player.round_stats.armor!= 0) {
-
-            $('#player-round-info').append('<p> ' +
-                ' Armor- ' + player.round_stats.armor + '</p>');
-        }
-
-        $('#player-round-info').append('<p> ' +
-            ' Money - $'+player.round_stats.money+'</p>');
 
     } else {
-        let playerRoundStats = playerName + " : dead";
-        let spectating =  "Spectating: "+ player.name;
+        let playerRoundStats = playerName + ": dead";
+        let spectating =  "spectating: "+ player.name;
         $('#round-stats-list').append('<li class="mdl-list__item"> ' +
-            '<span class="mdl-list__item-primary-content">'+ playerRoundStats +'</span>');
-        $('#round-stats-list').append('<li class="mdl-list__item"> ' +
-            '<span class="mdl-list__item-primary-content">'+ spectating+'</span>');
+            '<span class="mdl-list__item-primary-content">'+ playerRoundStats+", "+spectating +'</span>');
     }
 
     if(round.bomb_status != "") {
+        var css;
+
+        if(round.bomb_status == "defused") {
+            css = bluecss;
+        } else {
+            css = redcss;
+        }
+
         $('#round-stats-list').append('<li class="mdl-list__item"> ' +
-            '<span class="mdl-list__item-primary-content">'+'Bomb '+round.bomb_status+'</span>' +
-            ' <img class="material-icons mdl-list__item-icon" src='+icons["c4"]+'></img>');
+            '<span class="mdl-list__item-primary-content"'+css+'>'+'Bomb '+round.bomb_status +
+            ' <img class="material-icons mdl-list__item-icon" style="margin-left: 13px;" src='+icons["c4"]+'></img></span></li>');
     };
 
     if(round.win_team != "") {
         var winText = "";
+        var css =blackcss
         if(round.win_team = "T") {
             winText = "Terrorists win"
+            css =  redcss;
         } else if(round.win_team = "CT") {
             winText = "Counter terrorists win"
+            css =  bluecss;
         }
-        $('#round-details').html('Round ' + currentRound + " - " + winText);
         $('#round-stats-list').append('<li class="mdl-list__item"> ' +
-            '<span class="mdl-list__item-primary-content">'+winText+'</span>');
+            '<span class="mdl-list__item-primary-content"'+css+'>'+winText+'</span>');
     }
-}
-
-function addOtherPlayersData(player) {
-
 }
 
 function updateWeapons(weapons) {
@@ -172,22 +180,43 @@ function prependPlayerScore(player) {
         '<td>'+player.match_stats.score+'</td> ' +
         '</tr>')
 }
-function updateLiveStatus(i) {
+function updateLiveStatus(i, live) {
     if(i ==0) {
 
-
-        $('#live-status').html("User not live :(");
         $('#live-status').show()
+        $('#live-status-message').show()
         $('#live-container').hide()
+
+        if(live) {
+            $('#live-status').html("You are not live :(");
+            $('#live-status-message').html("Start the server and then play CS:GO");
+
+        } else {
+            $('#live-status').html("User not live :(");
+            $('#live-status-message').html("User is not currently live");
+
+        }
+
 
     } else if( i== 1) {
-        $('#live-status').html("Waiting for data...");
         $('#live-status').show()
+        $('#live-status-message').show()
         $('#live-container').hide()
+
+        if(live) {
+            $('#live-status').html("Waiting for data...");
+            $('#live-status-message').html("Start playing and live score will appear here");
+        } else {
+            $('#live-status').html("Connecting...");
+            $('#live-status-message').html("Live data will soon appear here");
+        }
+
 
     } else if( i == 2){
         $('#live-status').hide()
         $('#live-container').show()
+        $('#live-status-message').hide()
+
     }
 }
 
