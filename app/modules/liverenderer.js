@@ -6,7 +6,7 @@ let $ = require('jQuery')
 
 let icons = require('./../js/gsi/gsiparser.js').icons;
 
-var playerName = "player";
+var playerName = '< waiting for name >';
 var playerID;
 
 //0 - server not running, not live
@@ -58,6 +58,7 @@ function updateGameInfo(game) {
 
 }
 
+
 function updateRoundInfo( currentRound, round, player, playerId) {
 
     $('#round-stats-list').empty();
@@ -90,8 +91,11 @@ function updateRoundInfo( currentRound, round, player, playerId) {
 
     } else {
         let playerRoundStats = playerName + " : dead";
+        let spectating =  "Spectating: "+ player.name;
         $('#round-stats-list').append('<li class="mdl-list__item"> ' +
             '<span class="mdl-list__item-primary-content">'+ playerRoundStats +'</span>');
+        $('#round-stats-list').append('<li class="mdl-list__item"> ' +
+            '<span class="mdl-list__item-primary-content">'+ spectating+'</span>');
     }
 
     if(round.bomb_status != "") {
@@ -113,6 +117,10 @@ function updateRoundInfo( currentRound, round, player, playerId) {
     }
 }
 
+function addOtherPlayersData(player) {
+
+}
+
 function updateWeapons(weapons) {
 
     $('#div-weapons').empty();
@@ -132,9 +140,30 @@ function updateWeapons(weapons) {
 
 function updateScore(player) {
 
-    $('#score-table-body').empty();
 
-    $('#score-table-body').append('<tr> ' +
+    if(player.steam_id == playerID) {
+        $('#'+player.steam_id+'').remove();
+        prependPlayerScore(player)
+    } else {
+        $('#'+player.steam_id+'').remove();
+        appendPlayerScore(player);
+
+    }
+}
+
+function appendPlayerScore(player) {
+    $('#score-table-body').append('<tr id='+player.steam_id+'> ' +
+        '<td class="mdl-data-table__cell--non-numeric">'+player.name+'</td> ' +
+        '<td>'+player.match_stats.kills+'</td> ' +
+        '<td>'+player.match_stats.assists+'</td> ' +
+        '<td>'+player.match_stats.deaths+'</td> ' +
+        '<td>'+player.match_stats.mvps+'</td> ' +
+        '<td>'+player.match_stats.score+'</td> ' +
+        '</tr>')
+}
+
+function prependPlayerScore(player) {
+    $('#score-table-body').prepend('<tr id='+player.steam_id+'> ' +
         '<td class="mdl-data-table__cell--non-numeric">'+player.name+'</td> ' +
         '<td>'+player.match_stats.kills+'</td> ' +
         '<td>'+player.match_stats.assists+'</td> ' +
