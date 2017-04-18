@@ -4,19 +4,38 @@
 let firebaseapp = require('./../modules/firebaseconfig').firebaseapp;
 let $ = require('jQuery')
 
+var array = [];
+
 function fetchPastGames() {
-    firebaseapp.database().ref("/users/"+localStorage.getItem("username")).child("games").once('value').then(function (snapshot) {
+    firebaseapp.database().ref("/users/"+localStorage.getItem("username")).child("games")
+        .orderByChild("timestamp").once('value').then(function (snapshot) {
 
         if (snapshot.exists) {
             $('#loading').hide()
             snapshot.forEach(function (child) {
-            console.log('hghufuf')
+
             var key = child.key;
             var game = child.val();
 
-            renderGame(game, key)
+            array.push({game: game, key: key});
+
 
         });
+
+            if(array.length != 0) {
+                array.reverse();
+
+                let arrayLength = array.length;
+                for (var i = 0; i < arrayLength; i++) {
+                    let game = array[i].game;
+                    let key = array[i].key;
+
+                    renderGame(game, key)
+                }
+            } else {
+                $('#loading').hide()
+                showToast("No past games found")
+            }
 
     } else {
             $('#loading').hide()
@@ -31,7 +50,7 @@ function fetchPastGames() {
 
 function renderGame(game, key) {
 
-    let listitem = '<div id='+'"'+key+'"'+'style="margin: auto;"><hr></div> '
+    let listitem = '<div id='+'"'+key+'"'+'style="margin: auto;"></div> '
 
     $('#games-list').append(listitem);
 
@@ -100,7 +119,6 @@ function showToast(message) {
     var snackbarContainer = document.querySelector('#status-toast');
     var data = {message: message, timeout: 5000};
     snackbarContainer.MaterialSnackbar.showSnackbar(data);
-    console.log("ajjdjahjhd")
 }
 
 

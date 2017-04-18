@@ -22,12 +22,6 @@ $(document).ready(function (){
         });
     });
 
-    $('#nav-stats').click(function(){
-        $('#content').load('./stats.html', function () {
-            reloadComponentHandler()
-        });
-    });
-
     $('#nav-live').click(function(){
         $('#content').load('./livegame.html', function () {
             require('./../js/livegame.js').pageLoaded()
