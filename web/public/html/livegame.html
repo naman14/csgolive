@@ -1,41 +1,21 @@
 <!DOCTYPE html>
 
 <head>
-    <script>
-        require('../js/watchgame.js')
-    </script>
+
+    <script src="../js/socket.io/socket.io.js">   </script>
+
     <link rel="stylesheet" href="../css/home.css">
+
+    <script>
+        require('../js/livegame.js')
+    </script>
 
 </head>
 
-<html>
-
-<div class="center" id="user-select" style="margin-top: 70px;">
-
-    <div class="margin-all" >
-
-        <h2>Enter username and search to see whether user is live.</h2>
-    <form  action="#" class="margin-top">
-        <div class="mdl-textfield mdl-js-textfield">
-            <input class="mdl-textfield__input" type="text" id="input-username">
-            <label class="mdl-textfield__label" for="input-username">username</label>
-        </div>
-    </form>
-
-
-    <button id="btn-watch-user" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored margin-top">
-        Search
-    </button>
-
-    </div>
-
-    <div id="loading" class="mdl-spinner mdl-js-spinner is-active" style="margin-top: 50px;"></div>
-
-</div>
-
-<div id="parent">
+<div>
 
     <h1 id="live-status" class="center" style="margin-top: 100px" ></h1>
+
     <h2 id="live-status-message" class="center txtLiveMessage" style="margin-top: 20px" ></h2>
 
     <div id="live-container" class="center margin-all" >
@@ -43,7 +23,6 @@
         <div class="topRight margin-all inline">
 
             <button id="btn-live-status" class="mdl-button mdl-js-button mdl-button--accent">
-                LIVE
             </button>
 
             <button id="btn-game-map" class="mdl-button mdl-js-button mdl-button--primary">
@@ -103,10 +82,12 @@
 
         </div>
 
+
     </div>
-</div>
+    </div>
 
 </div>
+
 
 
 </html>

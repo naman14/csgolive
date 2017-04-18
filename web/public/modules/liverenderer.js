@@ -2,9 +2,7 @@
  * Created by naman on 17/4/17.
  */
 
-let $ = require('jQuery')
-
-let icons = require('./../js/gsi/gsiparser.js').icons;
+var $;
 
 var playerName = '< waiting for name >';
 var playerID;
@@ -28,7 +26,7 @@ function renderData(data) {
         let date = new Date(json.timestamp * 1000);
 
         lastLiveTime = "Last live on "+ date.getDate()+ " "+ months[date.getMonth()]+ " " + date.getFullYear();
-        $('#live-status-message').html("User is not currently live<br>"+lastLiveTime);
+        this.$('#live-status-message').html("User is not currently live<br>"+lastLiveTime);
         return;
     }
 
@@ -42,9 +40,9 @@ function renderData(data) {
 
 
     if(json.player.team == "T") {
-        $('#btn-player-team').html("Terrorist");
+        this.$('#btn-player-team').html("Terrorist");
     } else if(json.player.team == "CT") {
-        $('#btn-player-team').html("Counter Terrorist");
+        this.$('#btn-player-team').html("Counter Terrorist");
     }
 
 
@@ -58,13 +56,13 @@ function renderData(data) {
     }
 
 
-    $('#btn-player-name').html(playerName);
+    this.$('#btn-player-name').html(playerName);
 }
 function updateGameInfo(game) {
-    $('#btn-game-map').html(game.mode + " " + game.map);
-    $('#btn-live-status').html(game.phase);
-    $('#score-ct').html(game.ct_score);
-    $('#score-t').html(game.t_score);
+    this.$('#btn-game-map').html(game.mode + " " + game.map);
+    this.$('#btn-live-status').html(game.phase);
+    this.$('#score-ct').html(game.ct_score);
+    this.$('#score-t').html(game.t_score);
 
 
 }
@@ -72,16 +70,16 @@ function updateGameInfo(game) {
 
 function updateRoundInfo( currentRound, round, player, playerId) {
 
-    $('#round-stats-list').empty();
+    this.$('#round-stats-list').empty();
 
 
-    $('#round-stats-list').append('<li class="mdl-list__item"> ' +
+    this.$('#round-stats-list').append('<li class="mdl-list__item"> ' +
             '<span class="mdl-list__item-primary-content txtCardTitle">' + 'Round ' + currentRound + " - " + round.phase + '</span>');
 
     if(player.steam_id == playerId) {
         playerName = player.name;
         let playerRoundStats = player.name + " : " + player.round_stats.kills + " kills, " + player.round_stats.hs_kills + " headshots";
-        $('#round-stats-list').append('<li class="mdl-list__item"> ' +
+        this.$('#round-stats-list').append('<li class="mdl-list__item"> ' +
             '<span class="mdl-list__item-primary-content">'+ playerRoundStats +'</span>');
 
         if(round.phase != "over") {
@@ -92,9 +90,9 @@ function updateRoundInfo( currentRound, round, player, playerId) {
             } else {
                 armorStatus += "no armor";
             }
-            armorStatus += ', $' + player.round_stats.money;
+            armorStatus += ', this.$' + player.round_stats.money;
 
-            $('#round-stats-list').append('<li class="mdl-list__item"> ' +
+            this.$('#round-stats-list').append('<li class="mdl-list__item"> ' +
                 '<span class="mdl-list__item-primary-content">' + player.round_stats.health + ' HP' + armorStatus + '</span></li>');
 
         }
@@ -103,7 +101,7 @@ function updateRoundInfo( currentRound, round, player, playerId) {
     } else {
         let playerRoundStats = playerName + ": dead";
         let spectating =  "spectating: "+ player.name;
-        $('#round-stats-list').append('<li class="mdl-list__item"> ' +
+        this.$('#round-stats-list').append('<li class="mdl-list__item"> ' +
             '<span class="mdl-list__item-primary-content">'+ playerRoundStats+", "+spectating +'</span>');
     }
 
@@ -116,7 +114,7 @@ function updateRoundInfo( currentRound, round, player, playerId) {
             css = redcss;
         }
 
-        $('#round-stats-list').append('<li class="mdl-list__item"> ' +
+        this.$('#round-stats-list').append('<li class="mdl-list__item"> ' +
             '<span class="mdl-list__item-primary-content"'+css+'>'+'Bomb '+round.bomb_status +
             ' <img class="material-icons mdl-list__item-icon" style="margin-left: 13px;" src='+icons["c4"]+'></img></span></li>');
     };
@@ -131,14 +129,14 @@ function updateRoundInfo( currentRound, round, player, playerId) {
             winText = "Counter terrorists win"
             css =  bluecss;
         }
-        $('#round-stats-list').append('<li class="mdl-list__item"> ' +
+        this.$('#round-stats-list').append('<li class="mdl-list__item"> ' +
             '<span class="mdl-list__item-primary-content"'+css+'>'+winText+'</span>');
     }
 }
 
 function updateWeapons(weapons) {
 
-    $('#div-weapons').empty();
+    this.$('#div-weapons').empty();
 
     let size = weapons.length;
 
@@ -146,7 +144,7 @@ function updateWeapons(weapons) {
         let weapon = weapons[i];
         let  weaponIcon = icons[weapon.name];
 
-        $('#div-weapons').append(
+        this.$('#div-weapons').append(
             '<img class="weaponImg" src='+weaponIcon+' />')
     }
 
@@ -157,17 +155,17 @@ function updateScore(player) {
 
 
     if(player.steam_id == playerID) {
-        $('#'+player.steam_id+'').remove();
+        this.$('#'+player.steam_id+'').remove();
         prependPlayerScore(player)
     } else {
-        $('#'+player.steam_id+'').remove();
+        this.$('#'+player.steam_id+'').remove();
         appendPlayerScore(player);
 
     }
 }
 
 function appendPlayerScore(player) {
-    $('#score-table-body').append('<tr id='+player.steam_id+'> ' +
+    this.$('#score-table-body').append('<tr id='+player.steam_id+'> ' +
         '<td class="mdl-data-table__cell--non-numeric">'+player.name+'</td> ' +
         '<td>'+player.match_stats.kills+'</td> ' +
         '<td>'+player.match_stats.assists+'</td> ' +
@@ -178,7 +176,7 @@ function appendPlayerScore(player) {
 }
 
 function prependPlayerScore(player) {
-    $('#score-table-body').prepend('<tr id='+player.steam_id+'> ' +
+    this.$('#score-table-body').prepend('<tr id='+player.steam_id+'> ' +
         '<td class="mdl-data-table__cell--non-numeric">'+player.name+'</td> ' +
         '<td>'+player.match_stats.kills+'</td> ' +
         '<td>'+player.match_stats.assists+'</td> ' +
@@ -190,43 +188,46 @@ function prependPlayerScore(player) {
 function updateLiveStatus(i, live) {
     if(i ==0) {
 
-        $('#live-status').show()
-        $('#live-status-message').show()
-        $('#live-container').hide()
+        this.$('#live-status').show()
+        this.$('#live-status-message').show()
+        this.$('#live-container').hide()
 
         if(live) {
-            $('#live-status').html("You are not live :(");
-            $('#live-status-message').html("Start the server and then play CS:GO");
+            this.$('#live-status').html("You are not live :(");
+            this.$('#live-status-message').html("Start the server and then play CS:GO");
 
         } else {
-            $('#live-status').html("User not live :(");
-            $('#live-status-message').html("User is not currently live");
+            this.$('#live-status').html("User not live :(");
+            this.$('#live-status-message').html("User is not currently live");
 
         }
 
 
     } else if( i== 1) {
-        $('#live-status').show()
-        $('#live-status-message').show()
-        $('#live-container').hide()
+        this.$('#live-status').show()
+        this.$('#live-status-message').show()
+        this.$('#live-container').hide()
 
         if(live) {
-            $('#live-status').html("Waiting for data...");
-            $('#live-status-message').html("Start playing and live score will appear here");
+            this.$('#live-status').html("Waiting for data...");
+            this.$('#live-status-message').html("Start playing and live score will appear here");
         } else {
-            $('#live-status').html("Connecting...");
-            $('#live-status-message').html("Live data will soon appear here");
+            this.$('#live-status').html("Connecting...");
+            this.$('#live-status-message').html("Live data will soon appear here");
         }
 
 
     } else if( i == 2){
-        $('#live-status').hide()
-        $('#live-container').show()
-        $('#live-status-message').hide()
+        this.$('#live-status').hide()
+        this.$('#live-container').show()
+        this.$('#live-status-message').hide()
 
     }
 }
 
-exports.renderData = renderData;
-exports.updateLiveStatus = updateLiveStatus;
+jQuery(document).ready(function($){
+    this.$ = $;
+    pageLoaded()
+});
+
 

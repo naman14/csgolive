@@ -1,0 +1,142 @@
+
+
+.parent div {
+    display: inline-block;
+}
+
+.inline {
+    display: inline-block;
+}
+ .center {
+     text-align: center;
+ }
+
+ .left {
+     text-align: left;
+ }
+
+.right {
+    text-align: right;
+}
+
+div.centerHorizontal
+{
+    width: 200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.centerFlex {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.margin-top {
+    margin-top: 15px;
+}
+
+.margin-bottom {
+    margin-bottom: 15px;
+}
+
+.margin-left-right {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.margin-all {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.bottomRight {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+}
+
+.topRight {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+.topLeft {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+
+.bottomLeft {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+}
+
+.weaponImg {
+    text-align:center;
+    display: table-cell;
+    vertical-align: middle;
+    margin-bottom: 15px;
+}
+
+.weaponText {
+    display: table-cell;
+    float: left;
+
+}
+.weaponText p {
+    display: block;
+}
+
+h1 {
+    color: #00c853;
+    font-family: sans-serif;
+    font-size: 35px;
+    line-height: 1.5;
+}
+
+h2 {
+    color: black;
+    font-family: sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.txtScoreCT {
+    color: blue;
+    font-family: sans-serif;
+    font-size: 23px;
+}
+
+.txtScoreT {
+    color: red;
+    font-family: sans-serif;
+    font-size: 23px;
+}
+
+.txtScoreTeam {
+    color: black;
+    font-family: sans-serif;
+    font-size: 13px;
+}
+
+.txtCardTitle {
+    color: blue;
+    font-family: sans-serif;
+    font-size: 17px;
+}
+
+
+.txtLiveMessage {
+    color: black;
+    font-family: sans-serif;
+    font-size: 15px;
+}
+
+

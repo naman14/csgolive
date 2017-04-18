@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 
 <head>
-    <script>
-        require('../js/watchgame.js')
-    </script>
+
     <link rel="stylesheet" href="../css/home.css">
+
+    <link rel="stylesheet" href="../mdl/material.min.css">
+    <script src="../mdl/material.min.js"></script>
+    <link rel="stylesheet" href="../mdl/fonts.css">
+    <link rel="stylesheet" href="../css/home.css">
+
+    <script src="../modules/jquery-3.2.1.min.js"></script>
+    <script src="../js/watchgame.js"></script>
+    <script src="../modules/liverenderer.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.7.6/firebase.js"></script>
+    <script src="../modules/firebaseconfig.js"></script>
+    <script src="../js/gsi/gsiparser.js"></script>
+
+
+
+
+
 
 </head>
 
@@ -106,6 +121,11 @@
     </div>
 </div>
 
+</div>
+
+<div id="status-toast" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button class="mdl-snackbar__action" type="button"></button>
 </div>
 
 
