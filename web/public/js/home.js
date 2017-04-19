@@ -6,7 +6,7 @@ var $;
 
 jQuery(document).ready(function($){
     this.$ = $;
-    $('#content').load('./../html/watchgame.html', function () {
+    $('#content').load('./../html/about.html', function () {
         pageLoaded($)
         reloadComponentHandler()
     });

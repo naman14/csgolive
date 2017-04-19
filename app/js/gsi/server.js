@@ -12,6 +12,7 @@ let fs = require('fs');
 let path = require('path');
 
 const {dialog} = require('electron').remote;
+const {shell} = require('electron')
 
 var content;
 
@@ -32,7 +33,7 @@ $(document).ready(
 function stopServer() {
     server.close()
     serverrunning = false;
-    $("#btn-start-server").html("Start server")
+    updateServerStatus()
 
 }
 
@@ -181,9 +182,18 @@ function update(json) {
 function updateServerStatus() {
     serverrunning = server != undefined && (server.address() != null)
     if(serverrunning) {
+        $('#txt-server-status').html("Server is running. Access your live scores from the 'Live' menu of the app or from" +
+            " the 'Watch' menu in the <a id='link-website' href=''>website<a/>")
         $("#btn-start-server").html("Stop server")
+        
+        $('#link-website').click(function (e) {
+            e.preventDefault()
+            shell.openExternal('https://csgo-gsi.live')
+        })
 
     } else {
+        $('#txt-server-status').html("Start the server and then play CS:CSGO, your live game will be " +
+            "broadcasted and can be accessed from the 'Watch' side menu in the app or from the website")
         $("#btn-start-server").html("Start server")
     }
 }
