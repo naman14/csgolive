@@ -19,7 +19,7 @@ function renderData(data) {
     let json = JSON.parse(data);
 
     console.log("no update for " + (new Date().getTime() / 1000 - json.timestamp) + " seconds");
-    if((new Date().getTime() / 1000 - json.timestamp) > 100) {
+    if((new Date().getTime() / 1000 - json.timestamp) > 60) {
         updateLiveStatus(0);
         let lastLiveTime;
         let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];

@@ -19,6 +19,18 @@ jQuery(document).ready(function($){
 
         });
     });
+    $('#nav-download').click(function(){
+        $('#content').load('./../html/download.html', function () {
+
+        });
+    });
+
+    $('#nav-about').click(function(){
+        $('#content').load('./../html/about.html', function () {
+
+        });
+    });
+
 
 
 });
