@@ -188,7 +188,7 @@ function updateServerStatus() {
         
         $('#link-website').click(function (e) {
             e.preventDefault()
-            shell.openExternal('https://csgo-gsi.live')
+            shell.openExternal('https://csgo-gsi.com')
         })
 
     } else {
