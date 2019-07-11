@@ -1,6 +1,6 @@
 # CS:GO Live
 
-<a href="https://csgo-gsi.com">https://csgo-gsi.com</a>
+<a href="https://csgo-gsi.com">https://csgolive-b4b34.firebaseapp.com/</a>
 
 CS:GO Live uses Valve's Game State Integration for CS:GO to collect game state changes and broadcast them.
 
