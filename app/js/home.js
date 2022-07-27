@@ -37,6 +37,13 @@ $(document).ready(function (){
         });
     });
 
+    $('#nav-onchain').click(function(){
+        $('#content').load('./onchain.html', function () {
+            require('./onchain.js').pageLoaded()
+            reloadComponentHandler()
+        });
+    });
+
 });
 
 function reloadComponentHandler() {

@@ -5,6 +5,7 @@
 let $ = require('jQuery');
 let gsi = require('./gsiparser.js')
 let firebase = require('./firebaseupdate.js')
+let { saveOnchain } = require('../onchain.js')
 
 http = require('http');
 
@@ -169,11 +170,17 @@ function update(json) {
     }
 
     //game over save data to firebase
-    if(parsed.game.phase == "gameover" && localStorage.getItem("save_game_firebase")) {
-        parsed.round = null;
-        parsed.player.round_stats = null;
-        parsed.player.player_weapons = null;
-        firebase.saveGameToFirebase(parsed)
+    if(parsed.game.phase == "gameover") {
+        if (localStorage.getItem("save_game_firebase")) {
+            parsed.round = null;
+            parsed.player.round_stats = null;
+            parsed.player.player_weapons = null;
+            firebase.saveGameToFirebase(parsed)
+        }
+        if (localStorage.getItem("save_onchain")) {
+            saveOnchain()
+        }
+    
     }
 
 
@@ -264,11 +271,11 @@ function pageLoaded() {
         }
     })
 
+
     $('#checkbox-1').attr("checked",localStorage.getItem("broadcast_comp"));
     $('#checkbox-2').attr("checked",localStorage.getItem("broadcast_casual"));
     $('#checkbox-3').attr("checked",localStorage.getItem("broadcast_dm"));
     $('#switch-1').attr("checked",localStorage.getItem("save_game_firebase"));
-
 
 }
 
