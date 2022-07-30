@@ -5,7 +5,16 @@
 let $ = require('jQuery');
 
 $(document).ready(function (){
-    $('#content').load('./cfgsetup.html');
+
+    if(location.hash) {
+        console.log('detected web3 login hash in home')
+        $('#content').load('./onchain.html' + `#${location.hash}`, function () {
+            require('./onchain.js').pageLoaded()
+            reloadComponentHandler()
+        });
+    } else {
+        $('#content').load('./cfgsetup.html');
+    }
 
     $('#nav-cfgsetup').click(function(){
         $('#content').load('./cfgsetup.html', function () {

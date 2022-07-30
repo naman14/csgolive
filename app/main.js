@@ -12,7 +12,11 @@ let mainWindow
 
 function createWindow () {
 
-    mainWindow = new BrowserWindow({width: 1100, height: 600})
+    mainWindow = new BrowserWindow({width: 1100, height: 600, webPreferences: {
+      webSecurity: false,
+      contextIsolation: false,
+      nodeIntegration: true
+    }})
 
     mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
@@ -48,3 +52,4 @@ ipc.on('navigate-login', function (event, arg) {
         slashes: true
     }))
 })
+

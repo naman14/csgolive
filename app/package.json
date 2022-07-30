@@ -7,10 +7,12 @@
   "license": "GPL",
   "dependencies": {
     "auto-launch": "^5.0.1",
+    "croak-wallet-sdk": "^1.0.52",
     "electron": "^1.4.1",
     "express": "^4.15.2",
     "firebase": "^3.6.10",
     "jQuery": "^1.7.4",
+    "skadi-wallet-sdk": "^1.0.27",
     "socket.io": "^1.7.3"
   }
 }
