@@ -1,6 +1,10 @@
 
 const API_KEY = 'test_key.uD+yT-9CJCCzwRAAiOq_'
 
+const CHAIN = 'polygon'
+const NETWORK = 'testnet'
+const CLIENT_ID ='62dfb4b2908167125627c136'
+
 async function saveOnchain() {
 
 }
@@ -10,34 +14,41 @@ async function verifyWallet(walletVerifiedCallback) {
 
     console.log(location)
     await croakWallet.init({
-        chain:'polygon',
-        authNetwork: 'testnet',
-        clientIdentifier: '62dfb4b2908167125627c136'
+        chain:CHAIN,
+        authNetwork: NETWORK,
+        clientIdentifier: CLIENT_ID
     }
     );
 
     console.log('init called')
     /* This is checking if the user is connected to the wallet. */
-    let isConnected = await skadiWallet.isConnected();
+    let isConnected = await croakWallet.isConnected();
 
     /* This is checking if the user is connected to the wallet. If the user is not connected, it
     will show the connect modal. If the user is connected, it will get the user info and log it
     to the console. */
     console.log("isConnected : ", isConnected);
+
     if (!isConnected) {
         croakWallet.showConnectModal();
     } else {
         let userInfo = await croakWallet.getUserInfo();
         console.log("userInfo : ", userInfo);
+        
         let walletId = await croakWallet.getWalletID();
         console.log("walletId: ", walletId)
+
+        userInfo.chain = CHAIN
+        userInfo.network = NETWORK
 
         let walletLinked = localStorage.getItem('wallet_linked')
 
         if (walletLinked == null || walletLinked == false) {
-            linkWallet(walletId, walletVerifiedCallback)
+            linkWallet(walletId, () => {
+                walletVerifiedCallback(userInfo)
+            })
         } else {
-            walletVerifiedCallback()
+            walletVerifiedCallback(userInfo)
         }
     
   }

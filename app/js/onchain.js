@@ -7,12 +7,14 @@ function pageLoaded() {
     $('#label-onchain').hide()
 
     setTimeout(() => {
-        verifyWallet(() => {
+        verifyWallet((userInfo) => {
             console.log('wallet verified')
             $('#label-onchain').show()
             if (localStorage.getItem("save_onchain") == null) {
                 localStorage.setItem("save_onchain", true);
+                $('#switch-onchain').attr("checked", true);
             }
+            $('#wallet-info').text('Wallet connected: ' + userInfo.email + ' ' + userInfo.chain + ' ' + userInfo.network)
         })
     }, 500)
 

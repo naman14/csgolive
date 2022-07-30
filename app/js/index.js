@@ -7,6 +7,7 @@ if(localStorage.getItem("email") == null) {
     location.href = "./html/login.html"
 } else {
     console.log("loading home")
+    console.log('home location: ', location)
     if (location.hash) {
         console.log('detected web3 login hash in index')
         location.href = "./html/home.html" + `#${location.hash}`
