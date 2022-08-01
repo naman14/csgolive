@@ -8,6 +8,8 @@ const url = require('url')
 
 const ipc = require('electron').ipcMain
 
+require('@electron/remote/main').initialize()
+
 let mainWindow
 
 function createWindow () {
@@ -15,8 +17,11 @@ function createWindow () {
     mainWindow = new BrowserWindow({width: 1100, height: 600, webPreferences: {
       webSecurity: false,
       contextIsolation: false,
-      nodeIntegration: true
+      nodeIntegration: true,
+      enableRemoteModule: true,
     }})
+
+    require('@electron/remote/main').enable(mainWindow.webContents)
 
     mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),

@@ -12,7 +12,7 @@ http = require('http');
 let fs = require('fs');
 let path = require('path');
 
-const {dialog} = require('electron').remote;
+const {dialog} = require('@electron/remote')
 const {shell} = require('electron')
 
 var content;
@@ -104,17 +104,26 @@ function createCfg(callback) {
 
     if (localStorage.getItem("cfgPath") == null) {
 
-        dialog.showMessageBox({title: "Choose csgo config location",type: "info",
-                buttons:["OK"],
-                message:"CSGO Live will create a config file that need to be present in the csgo cfg directory. Please choose the csgo cfg directory " +
-                "It is generally located in - C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\cfg"},
-            function () {
+        dialog.showMessageBox(
+            {title: "Choose csgo config location",type: "info",
+            buttons:["OK"],
+            message:"CSGO Live will create a config file that need to be present in the csgo cfg directory. Please choose the csgo cfg directory " +
+            "It is generally located in - C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\cfg"}
+            )
+            .then(result => {
+                console.log('herrrree')
                 let filename = "/gamestate_integration_csgolive.cfg";
-                let path = dialog.showOpenDialog({properties: ['openDirectory']})[0] + filename;
-                console.log(path)
-                localStorage.setItem("cfgPath", path);
-                writeToFile(callback)
-            })
+                try {
+                    let path = dialog.showOpenDialogSync({properties: ['openDirectory']})[0] + filename;
+                    console.log(path)
+                    localStorage.setItem("cfgPath", path);
+                    writeToFile(callback)
+                } catch (err){
+
+                }
+            }
+          );
+
     } else {
         writeToFile(callback)
     }
@@ -195,7 +204,7 @@ function updateServerStatus() {
         
         $('#link-website').click(function (e) {
             e.preventDefault()
-            shell.openExternal('https://csgo-gsi.com')
+            shell.openExternal('https://csgolive-b4b34.firebaseapp.com/')
         })
 
     } else {

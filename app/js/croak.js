@@ -6,11 +6,15 @@ const NETWORK = 'testnet'
 const CLIENT_ID ='62e51663d16b3f474df761fc'
 const CONTRACT_ID = '62e51695d16b3f474df76208'
 
+let $ = require('jQuery');
+
 async function saveOnchain() {
 
 }
 
 async function verifyWallet(walletVerifiedCallback) {
+    $('#loading').show();
+
     let { croakWallet } = require('croak-wallet-sdk/wallet');
 
     console.log(location)
@@ -31,6 +35,7 @@ async function verifyWallet(walletVerifiedCallback) {
     console.log("isConnected : ", isConnected);
 
     if (!isConnected) {
+        $('#loading').hide();
         croakWallet.showConnectModal();
     } else {
         let userInfo = await croakWallet.getUserInfo();
@@ -46,9 +51,11 @@ async function verifyWallet(walletVerifiedCallback) {
 
         if (walletLinked == null || walletLinked == false) {
             linkWallet(walletId, () => {
+                $('#loading').hide();
                 walletVerifiedCallback(userInfo)
             })
         } else {
+            $('#loading').hide();
             walletVerifiedCallback(userInfo)
         }
     
@@ -71,6 +78,7 @@ function linkWallet(walletId, callback) {
         .then(response => {
             localStorage.setItem('wallet_linked', true)
             localStorage.setItem('wallet_id', walletId)
+            localStorage.setItem("save_onchain", true);
             callback()
         })
         .catch(err => console.error(err));

@@ -12,12 +12,14 @@ const API_KEY = 'test_key._Ms_lKkeGhHuP.+BjP_H'
 function pageLoaded() {
     
     $('#label-onchain').hide()
+    $('#loading').show();
 
     setTimeout(() => {
+        $('#loading').hide();
         verifyWallet((userInfo) => {
             console.log('wallet verified')
             $('#label-onchain').show()
-            if (localStorage.getItem("save_onchain") == null) {
+            if (localStorage.getItem("save_onchain") == null || localStorage.getItem("save_onchain") == undefined || localStorage.getItem("save_onchain") == 'undefined') {
                 localStorage.setItem("save_onchain", true);
                 $('#switch-onchain').attr("checked", true);
             }
@@ -28,8 +30,10 @@ function pageLoaded() {
     $('#switch-onchain').change(function () {
         if(this.checked) {
             localStorage.setItem("save_onchain", true);
+            $('#switch-onchain').attr("checked", true);
         } else {
-            localStorage.setItem("save_onchain", false)
+            localStorage.setItem("save_onchain", false);
+            $('#switch-onchain').attr("checked", false);
         }
     })
     

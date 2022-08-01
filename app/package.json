@@ -6,6 +6,7 @@
   "author": "naman14",
   "license": "GPL",
   "dependencies": {
+    "@electron/remote": "^2.0.8",
     "auto-launch": "^5.0.1",
     "croak-wallet-sdk": "^1.0.52",
     "electron": "^18.2.3",
@@ -14,5 +15,8 @@
     "html2canvas": "^1.4.1",
     "jQuery": "^1.7.4",
     "socket.io": "^1.7.3"
+  },
+  "devDependencies": {
+    "electron-packager": "^15.5.1"
   }
 }
