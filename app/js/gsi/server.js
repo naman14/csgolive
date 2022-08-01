@@ -111,7 +111,6 @@ function createCfg(callback) {
             "It is generally located in - C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\cfg"}
             )
             .then(result => {
-                console.log('herrrree')
                 let filename = "/gamestate_integration_csgolive.cfg";
                 try {
                     let path = dialog.showOpenDialogSync({properties: ['openDirectory']})[0] + filename;
@@ -156,6 +155,8 @@ function readLocalCfgFile(callback) {
 }
 
 
+let lastGameOverUpdate = 0
+
 function update(json) {
     let parsed = gsi.parseData(JSON.stringify(json));
     console.log("full model"+ JSON.stringify(parsed));
@@ -179,6 +180,8 @@ function update(json) {
 
     //game over save data to firebase
     if(parsed.game.phase == "gameover") {
+        if (Date.now() - lastGameOverUpdate < 10000) return
+        lastGameOverUpdate = Date.now()
         if (localStorage.getItem("save_game_firebase")) {
             parsed.round = null;
             parsed.player.round_stats = null;
