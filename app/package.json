@@ -11,6 +11,7 @@
     "electron": "^18.2.3",
     "express": "^4.15.2",
     "firebase": "^3.6.10",
+    "html2canvas": "^1.4.1",
     "jQuery": "^1.7.4",
     "socket.io": "^1.7.3"
   }

@@ -5,7 +5,7 @@
 let $ = require('jQuery');
 let gsi = require('./gsiparser.js')
 let firebase = require('./firebaseupdate.js')
-let { saveOnchain } = require('../onchain.js')
+let { saveOnChain } = require('../onchain.js')
 
 http = require('http');
 
@@ -23,7 +23,6 @@ var host = '127.0.0.1';
 var serverrunning = false;
 var server;
 var io;
-
 
 $(document).ready(
     function(){
@@ -175,10 +174,11 @@ function update(json) {
             parsed.round = null;
             parsed.player.round_stats = null;
             parsed.player.player_weapons = null;
-            firebase.saveGameToFirebase(parsed)
-        }
-        if (localStorage.getItem("save_onchain")) {
-            saveOnchain()
+            let key = firebase.saveGameToFirebase(parsed)
+
+            if (localStorage.getItem("save_onchain")) {
+                saveOnChain(parsed, key)
+            }
         }
     
     }

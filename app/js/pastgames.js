@@ -16,7 +16,6 @@ function fetchPastGames() {
 
             var key = child.key;
             var game = child.val();
-
             array.push({game: game, key: key});
 
 
@@ -61,7 +60,6 @@ function renderGame(game, key) {
 
 
     });
-
 }
 
 function updateGameInfo(game, key) {
@@ -85,6 +83,15 @@ function updateGameInfo(game, key) {
         }
     }
     $('#'+key+'').find('#btn-game-map').html(game.game.mode + " " + game.game.map);
+    
+    if (game.nft) {
+        $('#'+key+'').find('#container-nft').show()
+        $('#'+key+'').find('#btn-nft').click(function(){
+            require("electron").shell.openExternal(`https://testnets.opensea.io/assets/mumbai/${game.nft.contractAddress}/${game.nft.tokenId}`)
+        }); 
+    } else {
+        $('#'+key+'').find('#container-nft').hide()
+    }
 
     $('#'+key+'').find('#score-ct').html(game.game.ct_score);
     $('#'+key+'').find('#score-t').html(game.game.t_score);
@@ -128,3 +135,4 @@ function pageLoaded() {
 }
 
 exports.pageLoaded = pageLoaded;
+exports.renderGame = renderGame

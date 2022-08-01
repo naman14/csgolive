@@ -1,9 +1,10 @@
 
-const API_KEY = 'test_key.uD+yT-9CJCCzwRAAiOq_'
+const API_KEY = 'test_key._Ms_lKkeGhHuP.+BjP_H'
 
 const CHAIN = 'polygon'
 const NETWORK = 'testnet'
-const CLIENT_ID ='62dfb4b2908167125627c136'
+const CLIENT_ID ='62e51663d16b3f474df761fc'
+const CONTRACT_ID = '62e51695d16b3f474df76208'
 
 async function saveOnchain() {
 
