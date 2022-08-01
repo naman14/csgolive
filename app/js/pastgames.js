@@ -63,7 +63,6 @@ function renderGame(game, key) {
 }
 
 function updateGameInfo(game, key) {
-
     if(game.game.t_score == game.game.ct_score) {
         $('#'+key+'').find('#btn-win-team').html("Game draw");
 
