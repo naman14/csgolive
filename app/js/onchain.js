@@ -99,9 +99,9 @@ function mintNft(game, imageUrl, callback) {
         body: JSON.stringify({
           metadata: {
             attributes: [
-              {trait_type: 'Kills', value: game.player.match_stats.kills},
-              {trait_type: 'MVPs', value: game.player.match_stats.mvps},
-              {trait_type: 'Score', value: game.player.match_stats.score},
+              {trait_type: 'Kills', value: game.player.match_stats.kills.toString(), display_type: 'string'},
+              {trait_type: 'MVPs', value: game.player.match_stats.mvps.toString(), display_type: 'string'},
+              {trait_type: 'Score', value: game.player.match_stats.score.toString(), display_type: 'string'},
               {trait_type: 'Result', value: gameResult, display_type: 'string'},
               {trait_type: 'Map', value: game.game.map, display_type: 'string'},
               {trait_type: 'Game mode', value: game.game.mode, display_type: 'string'},
