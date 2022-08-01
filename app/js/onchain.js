@@ -123,7 +123,7 @@ function mintNft(game, imageUrl, callback) {
         .then(response => response.json())
         .then(response => {
             console.log(response)
-            callback(response.data.id)
+            callback(response.data)
         })
         .catch(err => console.error(err));
 }
