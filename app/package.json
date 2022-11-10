@@ -9,7 +9,7 @@
     "@electron/remote": "^2.0.8",
     "auto-launch": "^5.0.1",
     "croak-wallet-sdk": "^1.0.52",
-    "electron": "^18.2.3",
+    "electron": "^18.3.7",
     "express": "^4.15.2",
     "firebase": "^3.6.10",
     "html2canvas": "^1.4.1",
